@@ -54,6 +54,11 @@ spec:
         name: manifests
         path: stacks/ibm/application/cert-manager
     name: cert-manager
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: stacks/ibm/application/openaihub
+    name: openaihub
   # Tekton
   - kustomizeConfig:
       repoRef:
