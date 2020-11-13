@@ -89,7 +89,7 @@ spec:
   - kustomizeConfig:
       repoRef:
         name: manifests
-        path: stacks/ibm/application/metadata
+        path: stacks/openshift/application/metadata
     name: metadata
   - kustomizeConfig:
       repoRef:
