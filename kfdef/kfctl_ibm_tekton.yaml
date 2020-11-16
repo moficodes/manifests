@@ -59,6 +59,11 @@ spec:
         name: manifests
         path: stacks/ibm/application/openaihub
     name: openaihub
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: stacks/ibm/application/dlf
+    name: dlf
   # Tekton
   - kustomizeConfig:
       repoRef:
