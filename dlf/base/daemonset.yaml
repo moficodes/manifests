@@ -1,3 +1,4 @@
+---
 # Source: dlf-chart/charts/csi-nfs-chart/templates/csi-nodeplugin-nfsplugin.yaml
 # This YAML file contains driver-registrar & csi driver nodeplugin API objects
 # that are necessary to run CSI nodeplugin for nfs
@@ -26,11 +27,16 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "rm -rf /registration/csi-nfsplugin /registration/csi-nfsplugin-reg.sock"]
+                command:
+                  [
+                    "/bin/sh",
+                    "-c",
+                    "rm -rf /registration/csi-nfsplugin /registration/csi-nfsplugin-reg.sock",
+                  ]
           args:
             - --v=10
             - --csi-address=/plugin/csi.sock
-            - --kubelet-registration-path=/var/lib/kubelet/plugins/csi-nfsplugin/csi.sock
+            - --kubelet-registration-path=$(kubeletPath)/plugins/csi-nfsplugin/csi.sock
           env:
             - name: KUBE_NODE_NAME
               valueFrom:
@@ -48,7 +54,7 @@ spec:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
           image: "yiannisgkoufas/csi-nfs:latest-amd64"
-          args :
+          args:
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
           env:
@@ -63,19 +69,19 @@ spec:
             - name: plugin-dir
               mountPath: /plugin
             - name: pods-mount-dir
-              mountPath: /var/lib/kubelet/pods
+              mountPath: $(kubeletPath)/pods
               mountPropagation: "Bidirectional"
       volumes:
         - name: plugin-dir
           hostPath:
-            path: /var/lib/kubelet/plugins/csi-nfsplugin
+            path: $(kubeletPath)/plugins/csi-nfsplugin
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
-            path: /var/lib/kubelet/pods
+            path: $(kubeletPath)/pods
             type: Directory
         - hostPath:
-            path: /var/lib/kubelet/plugins_registry
+            path: $(kubeletPath)/plugins_registry
             type: Directory
           name: registration-dir
 ---
@@ -105,7 +111,7 @@ spec:
           args:
             - --v=5
             - --csi-address=/csi/csi.sock
-            - --kubelet-registration-path=/var/lib/kubelet/plugins/csi-s3/csi.sock
+            - --kubelet-registration-path=$(kubeletPath)/plugins/csi-s3/csi.sock
           securityContext:
             # This is necessary only for systems with SELinux, where
             # non-privileged sidecar containers cannot access unix domain socket
@@ -157,7 +163,7 @@ spec:
           volumeMounts:
             - mountPath: /csi
               name: socket-dir
-            - mountPath: /var/lib/kubelet/pods
+            - mountPath: $(kubeletPath)/pods
               mountPropagation: Bidirectional
               name: mountpoint-dir
             - mountPath: /dev
@@ -173,15 +179,15 @@ spec:
       #            - --health-port=9898
       volumes:
         - hostPath:
-            path: /var/lib/kubelet/plugins/csi-s3
+            path: $(kubeletPath)/plugins/csi-s3
             type: DirectoryOrCreate
           name: socket-dir
         - hostPath:
-            path: /var/lib/kubelet/pods
+            path: $(kubeletPath)/pods
             type: DirectoryOrCreate
           name: mountpoint-dir
         - hostPath:
-            path: /var/lib/kubelet/plugins_registry
+            path: $(kubeletPath)/plugins_registry
             type: Directory
           name: registration-dir
         - hostPath:
