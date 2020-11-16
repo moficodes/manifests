@@ -1,3 +1,4 @@
+---
 # Source: dlf-chart/charts/csi-nfs-chart/templates/csi-attacher-nfsplugin.yaml
 kind: StatefulSet
 apiVersion: apps/v1
@@ -34,7 +35,7 @@ spec:
               mountPath: /csi
         - name: nfs
           image: "yiannisgkoufas/csi-nfs:latest-amd64"
-          args :
+          args:
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
           env:
@@ -86,12 +87,11 @@ spec:
             # created by privileged CSI driver container.
             privileged: true
           volumeMounts:
-          - mountPath: /csi
-            name: socket-dir
-
+            - mountPath: /csi
+              name: socket-dir
       volumes:
         - hostPath:
-            path: /var/lib/kubelet/plugins/csi-s3
+            path: $(kubeletPath)/plugins/csi-s3
             type: DirectoryOrCreate
           name: socket-dir
 ---
@@ -133,6 +133,6 @@ spec:
               name: socket-dir
       volumes:
         - hostPath:
-            path: /var/lib/kubelet/plugins/csi-s3
+            path: $(kubeletPath)/plugins/csi-s3
             type: DirectoryOrCreate
           name: socket-dir

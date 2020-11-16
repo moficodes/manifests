@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: kubeflow
+resources:
+  - ../../../../dlf/base
+configMapGenerator:
+- name: dlf-parameters-iks
+  envs:
+  - params.env
+generatorOptions:
+  disableNameSuffixHash: true
+vars:
+- name: kubeletPath
+  objref:
+    kind: ConfigMap
+    name: dlf-parameters-iks
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.kubeletPath
+    

@@ -18,3 +18,17 @@ resources:
   - serviceaccount.yaml
   - statefulset.yaml
   - storageclass.yaml
+configMapGenerator:
+- name: dlf-parameters
+  envs:
+  - params.env
+generatorOptions:
+  disableNameSuffixHash: true
+vars:
+- name: kubeletPath
+  objref:
+    kind: ConfigMap
+    name: dlf-parameters
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.kubeletPath
