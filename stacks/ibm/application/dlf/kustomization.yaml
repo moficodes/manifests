@@ -10,12 +10,4 @@ configMapGenerator:
   - params.env
 generatorOptions:
   disableNameSuffixHash: true
-vars:
-- name: kubeletPath
-  objref:
-    kind: ConfigMap
-    name: dlf-parameters
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.kubeletPath
     
