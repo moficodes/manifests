@@ -36,7 +36,7 @@ spec:
           args:
             - --v=10
             - --csi-address=/plugin/csi.sock
-            - --kubelet-registration-path=$(kubeletPath)/plugins/csi-nfsplugin/csi.sock
+            - --kubelet-registration-path=$(kubelet-path)/plugins/csi-nfsplugin/csi.sock
           env:
             - name: KUBE_NODE_NAME
               valueFrom:
@@ -69,19 +69,19 @@ spec:
             - name: plugin-dir
               mountPath: /plugin
             - name: pods-mount-dir
-              mountPath: $(kubeletPath)/pods
+              mountPath: $(kubelet-path)/pods
               mountPropagation: "Bidirectional"
       volumes:
         - name: plugin-dir
           hostPath:
-            path: $(kubeletPath)/plugins/csi-nfsplugin
+            path: $(kubelet-path)/plugins/csi-nfsplugin
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
-            path: $(kubeletPath)/pods
+            path: $(kubelet-path)/pods
             type: Directory
         - hostPath:
-            path: $(kubeletPath)/plugins_registry
+            path: $(kubelet-path)/plugins_registry
             type: Directory
           name: registration-dir
 ---
@@ -111,7 +111,7 @@ spec:
           args:
             - --v=5
             - --csi-address=/csi/csi.sock
-            - --kubelet-registration-path=$(kubeletPath)/plugins/csi-s3/csi.sock
+            - --kubelet-registration-path=$(kubelet-path)/plugins/csi-s3/csi.sock
           securityContext:
             # This is necessary only for systems with SELinux, where
             # non-privileged sidecar containers cannot access unix domain socket
@@ -163,7 +163,7 @@ spec:
           volumeMounts:
             - mountPath: /csi
               name: socket-dir
-            - mountPath: $(kubeletPath)/pods
+            - mountPath: $(kubelet-path)/pods
               mountPropagation: Bidirectional
               name: mountpoint-dir
             - mountPath: /dev
@@ -179,15 +179,15 @@ spec:
       #            - --health-port=9898
       volumes:
         - hostPath:
-            path: $(kubeletPath)/plugins/csi-s3
+            path: $(kubelet-path)/plugins/csi-s3
             type: DirectoryOrCreate
           name: socket-dir
         - hostPath:
-            path: $(kubeletPath)/pods
+            path: $(kubelet-path)/pods
             type: DirectoryOrCreate
           name: mountpoint-dir
         - hostPath:
-            path: $(kubeletPath)/plugins_registry
+            path: $(kubelet-path)/plugins_registry
             type: Directory
           name: registration-dir
         - hostPath:

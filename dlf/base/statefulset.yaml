@@ -91,7 +91,7 @@ spec:
               name: socket-dir
       volumes:
         - hostPath:
-            path: $(kubeletPath)/plugins/csi-s3
+            path: $(kubelet-path)/plugins/csi-s3
             type: DirectoryOrCreate
           name: socket-dir
 ---
@@ -133,6 +133,6 @@ spec:
               name: socket-dir
       volumes:
         - hostPath:
-            path: $(kubeletPath)/plugins/csi-s3
+            path: $(kubelet-path)/plugins/csi-s3
             type: DirectoryOrCreate
           name: socket-dir
