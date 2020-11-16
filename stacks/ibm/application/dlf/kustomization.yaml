@@ -5,7 +5,7 @@ resources:
   - ../../../../dlf/base
 configMapGenerator:
 - name: dlf-parameters
-  behavior: merge
+  behavior: replace
   envs:
   - params.env
 generatorOptions:
