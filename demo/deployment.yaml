@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $(app-name)
+  name: $(appname)
   labels:
     app: $(label)
 spec:

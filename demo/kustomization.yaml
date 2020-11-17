@@ -18,10 +18,10 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.label
-- name: app-name
+- name: appname
   objref:
     kind: ConfigMap
     name: demo-params
     apiVersion: v1
   fieldref:
-    fieldpath: data.app-name
+    fieldpath: data.appname
