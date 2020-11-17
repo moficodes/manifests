@@ -3,3 +3,10 @@ kind: Kustomization
 namespace: dlf
 resources:
   - ../../../../dlf/base
+configMapGenerator:
+- name: dlf-parameters
+  behavior: merge
+  envs:
+  - params.env
+generatorOptions:
+  disableNameSuffixHash: true
