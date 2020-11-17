@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: demo
+resources:
+  - deployment.yaml
+configMapGenerator:
+- name: demo-params
+  envs:
+  - params.env
+generatorOptions:
+  disableNameSuffixHash: true
+vars:
+- name: label
+  objref:
+    kind: ConfigMap
+    name: demo-params
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.label
+- name: app-name
+  objref:
+    kind: ConfigMap
+    name: demo-params
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.app-name
