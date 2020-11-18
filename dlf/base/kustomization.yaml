@@ -32,3 +32,5 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.kubeletPath
+configurations:
+- params.yaml
