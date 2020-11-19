@@ -67,7 +67,7 @@ spec:
   - kustomizeConfig:
       repoRef:
         name: manifests
-        path: stacks/ibm/application/dlf
+        path: dlf/base
     name: dlf
   # Tekton
   - kustomizeConfig:
