@@ -4,3 +4,4 @@ namespace: kubeflow
 resources:
 # Kubeflow Istio Resources
 - ../../../../../common/istio-1-9-0/kubeflow-istio-resources/base
+- network-attachment.yaml

@@ -1,48 +1,54 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kubeflow
 resources:
-  - ../../admission-webhook/webhook/v3
-  - ../../common/centraldashboard/overlays/stacks
-  - ../../kubeflow-roles/base
-  - application/jupyter-web-app
-  - application/notebook-controller
-  - application/profiles
-  - ../../pipeline/minio/installs/ibm
-  - ../../pipeline/mysql/installs/ibm
-  - ../../pipeline/installs/generic
-  - ../../argo/base_v3
-  - application/metadata
-  - ../../pytorch-job/pytorch-job-crds/overlays/application
-  - ../../pytorch-job/pytorch-operator/overlays/application
-  - ../../tf-training/tf-job-crds/overlays/application
-  - ../../tf-training/tf-job-operator/overlays/application
-  - ../../katib/installs/katib-standalone-ibm
-  - ../../seldon/seldon-core-operator/overlays/application
-configMapGenerator:
-- name: pipeline-mysql-parameters
-  behavior: merge
-  literals:
-  - mysqlPvcName=mysql-pv-claim
-- name: pipeline-minio-parameters
-  behavior: merge
-  literals:
-  - minioPvcName=minio-pv-claim
-- name: workflow-controller-parameters
-  behavior: merge
-  literals:
-  - containerRuntimeExecutor=pns
-- name: profiles-config
-  behavior: merge
-  literals:
-  - admin=example@kubeflow.org
-vars:
-# We need to define vars at the top level otherwise we will get
-# conflicts. 
-- fieldref:
-    fieldpath: metadata.namespace
-  name: katib-ui-namespace
-  objref:
-    kind: Service
-    name: katib-ui
-    apiVersion: v1
+# Cert-Manager
+- ../application/cert-manager-kube-system-resources
+- ../application/cert-manager-crds
+- ../application/cert-manager
+# Istio
+- ../application/istio-1-9-0
+# OIDC Authservice single user
+- ../application/oidc-authservice
+- ../application/dex-auth
+- ../application/user-namespace
+# KNative
+- ../application/knative
+# Kubeflow namespace
+- ../application/kubeflow-namespace
+# Kubeflow Roles
+- ../application/kubeflow-roles
+- ../application/kubeflow-istio-resources
+# Kubeflow Pipelines Argo
+# - ../application/kfp-argo
+# Kubeflow Pipelines Tekton
+- ../application/kfp-tekton
+# KFServing
+- ../application/kfserving
+# Katib
+- ../application/katib
+# Central Dashboard
+- ../application/centraldashboard/single-user
+# Admission Webhook
+- ../application/admission-webhook
+# Notebook Controller
+- ../application/notebook-controller
+# Jupyter Web App
+- ../application/jupyter-web-app/insecure
+# Profiles + KFAM
+- ../application/profiles
+# Volumes Web App
+- ../application/volumes-web-app/insecure
+# Tensorboards Web App
+-  ../application/tensorboard-controller
+# Tensorboard Controller
+-  ../application/tensorboard-web-app/insecure
+# TFJob Operator
+- ../application/tf-job
+# Pytorch Operator
+- ../application/pytorch-job
+# MPI Operator
+- ../application/mpi-job
+# MXNet Operator
+- ../application/mxnet-job
+# XGBoost Operator
+- ../application/xgboost-job

@@ -1,0 +1,54 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+# Cert-Manager
+- ../../application/cert-manager-kube-system-resources
+- ../../application/cert-manager-crds
+- ../../application/cert-manager
+# Istio
+- ../../application/istio-1-9-0
+# OIDC Authservice single user
+- ../../application/oidc-authservice
+- ../../application/dex-auth
+- ../../application/user-namespace
+# KNative
+- ../../application/knative
+# Kubeflow namespace
+- ../../application/kubeflow-namespace
+# Kubeflow Roles
+- ../../application/kubeflow-roles
+- ../../application/kubeflow-istio-resources
+# Kubeflow Pipelines Argo
+# - ../../application/kfp-argo
+# Kubeflow Pipelines Tekton
+- ../../application/kfp-tekton
+# KFServing
+- ../../application/kfserving
+# Katib
+- ../../application/katib
+# Central Dashboard
+- ../../application/centraldashboard/single-user
+# Admission Webhook
+- ../../application/admission-webhook
+# Notebook Controller
+- ../../application/notebook-controller
+# Jupyter Web App
+- ../../application/jupyter-web-app/insecure
+# Profiles + KFAM
+- ../../application/profiles
+# Volumes Web App
+- ../../application/volumes-web-app/insecure
+# Tensorboards Web App
+-  ../../application/tensorboard-controller
+# Tensorboard Controller
+-  ../../application/tensorboard-web-app/insecure
+# TFJob Operator
+- ../../application/tf-job
+# Pytorch Operator
+- ../../application/pytorch-job
+# MPI Operator
+- ../../application/mpi-job
+# MXNet Operator
+- ../../application/mxnet-job
+# XGBoost Operator
+- ../../application/xgboost-job
