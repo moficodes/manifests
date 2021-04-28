@@ -1,0 +1,53 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+# Cert-Manager (required)
+- ../distributions/stacks/ibm/application/cert-manager-kube-system-resources
+- ../distributions/stacks/ibm/application/cert-manager-crds
+- ../distributions/stacks/ibm/application/cert-manager
+# Istio (requires)
+- ../distributions/stacks/ibm/application/istio-1-9-0
+# OIDC Authservice (required)
+- ../distributions/stacks/ibm/application/oidc-authservice-appid
+# KNative
+- ../distributions/stacks/ibm/application/knative
+# Kubeflow namespace (required)
+- ../distributions/stacks/ibm/application/kubeflow-namespace
+# Kubeflow Roles (required)
+- ../distributions/stacks/ibm/application/kubeflow-roles
+# Kubeflow istio resource (required)
+- ../distributions/stacks/ibm/application/kubeflow-istio-resources
+# Kubeflow Pipelines Argo
+# - ../distributions/stacks/ibm/application/kfp-argo
+# Kubeflow Pipelines Tekton
+- ../distributions/stacks/ibm/application/kfp-tekton
+# KFServing
+- ../distributions/stacks/ibm/application/kfserving
+# Katib
+- ../distributions/stacks/ibm/application/katib
+# Central Dashboard (required)
+- ../distributions/stacks/ibm/application/centraldashboard/multi-user
+# Admission Webhook (required)
+- ../distributions/stacks/ibm/application/admission-webhook
+# Notebook Controller
+- ../distributions/stacks/ibm/application/notebook-controller
+# Jupyter Web App
+- ../distributions/stacks/ibm/application/jupyter-web-app/insecure
+# Profiles + KFAM (required)
+- ../distributions/stacks/ibm/application/profiles
+# Volumes Web App
+- ../distributions/stacks/ibm/application/volumes-web-app/insecure
+# Tensorboards Web App
+-  ../distributions/stacks/ibm/application/tensorboard-controller
+# Tensorboard Controller
+-  ../distributions/stacks/ibm/application/tensorboard-web-app/insecure
+# TFJob Operator
+- ../distributions/stacks/ibm/application/tf-job
+# Pytorch Operator
+- ../distributions/stacks/ibm/application/pytorch-job
+# MPI Operator
+- ../distributions/stacks/ibm/application/mpi-job
+# MXNet Operator
+- ../distributions/stacks/ibm/application/mxnet-job
+# XGBoost Operator
+- ../distributions/stacks/ibm/application/xgboost-job
