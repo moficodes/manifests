@@ -28,10 +28,9 @@ seLinuxContext:
   type: MustRunAs
 supplementalGroups:
   type: RunAsAny
-users:
+groups:
 #Component: istio/istio-install
-- system:serviceaccount:istio-system:istio-ingressgateway-service-account
-- system:serviceaccount:istio-system:istiod-service-account
+- system:serviceaccounts:$(NAMESPACE)
 volumes:
 - configMap
 - downwardAPI

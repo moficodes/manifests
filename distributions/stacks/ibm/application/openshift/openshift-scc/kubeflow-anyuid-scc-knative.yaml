@@ -4,7 +4,7 @@ metadata:
   annotations:
     kubernetes.io/description: kubeflow-anyuid provides all features of the restricted SCC
       but allows users to run with any UID and any GID.
-  name: kubeflow-anyuid-$(NAMESPACE)
+  name: kubeflow-anyuid-knative
 allowHostDirVolumePlugin: false
 allowHostIPC: false
 allowHostNetwork: false
@@ -29,8 +29,9 @@ seLinuxContext:
 supplementalGroups:
   type: RunAsAny
 groups:
-# Allowing all serviceaccounts in kubeflow to run any uid per istio 1.9 documentation for openshift https://istio.io/latest/docs/setup/platform-setup/openshift/
-- system:serviceaccounts:$(NAMESPACE)
+#Metadata DB accesses files owned by root
+- system:serviceaccounts:knative-eventing
+- system:serviceaccounts:knative-serving
 volumes:
 - configMap
 - downwardAPI

@@ -5,6 +5,7 @@ resources:
 - kubeflow-anyuid-scc-istio.yaml
 - kubeflow-privileged-scc-istio.yaml
 - kubeflow-anyuid-scc.yaml
+- kubeflow-anyuid-scc-knative.yaml
 - kubeflow-privileged-scc.yaml
 - tekton-anyuid-scc.yaml
 vars:
