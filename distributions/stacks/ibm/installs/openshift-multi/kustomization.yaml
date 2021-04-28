@@ -21,7 +21,7 @@ resources:
 # Kubeflow Pipelines Argo
 # - ../../application/kfp-argo
 # Kubeflow Pipelines Tekton
-- ../../application/kfp-tekton/openshift
+- ../../application/kfp-tekton
 # KFServing
 - ../../application/kfserving
 # Katib
