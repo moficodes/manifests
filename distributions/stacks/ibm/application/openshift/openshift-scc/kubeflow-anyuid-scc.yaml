@@ -28,9 +28,32 @@ seLinuxContext:
   type: MustRunAs
 supplementalGroups:
   type: RunAsAny
-groups:
-# Allowing all serviceaccounts in kubeflow to run any uid per istio 1.9 documentation for openshift https://istio.io/latest/docs/setup/platform-setup/openshift/
-- system:serviceaccounts:$(NAMESPACE)
+users:
+#Metadata DB accesses files owned by root
+- system:serviceaccount:$(NAMESPACE):metadatadb
+#Minio accesses files owned by root
+- system:serviceaccount:$(NAMESPACE):minio
+#Katib injects container into pods which does not run as non-root user, trying to find Dockerfile for that image and fix it
+#- system:serviceaccount:kubeflow:default
+- system:serviceaccount:$(NAMESPACE):default
+- system:serviceaccount:$(NAMESPACE):kubeflow-pipelines-cache
+- system:serviceaccount:$(NAMESPACE):kubeflow-pipelines-cache-deployer-sa
+- system:serviceaccount:$(NAMESPACE):metadata-grpc-server
+- system:serviceaccount:$(NAMESPACE):kubeflow-pipelines-metadata-writer
+- system:serviceaccount:$(NAMESPACE):ml-pipeline
+- system:serviceaccount:$(NAMESPACE):ml-pipeline-persistenceagent
+- system:serviceaccount:$(NAMESPACE):ml-pipeline-scheduledworkflow
+- system:serviceaccount:$(NAMESPACE):ml-pipeline-ui
+- system:serviceaccount:$(NAMESPACE):ml-pipeline-viewer-crd-service-account
+- system:serviceaccount:$(NAMESPACE):ml-pipeline-visualizationserver
+- system:serviceaccount:$(NAMESPACE):mysql
+- system:serviceaccount:$(NAMESPACE):pytorch-operator
+- system:serviceaccount:$(NAMESPACE):tensorboard-controller
+- system:serviceaccount:$(NAMESPACE):xgboost-operator-service-account
+# for kfserving
+- system:serviceaccount:$(NAMESPACE):kfserving
+# for admission-webhook
+- system:serviceaccount:$(NAMESPACE):admission-webhook-service-account
 volumes:
 - configMap
 - downwardAPI
